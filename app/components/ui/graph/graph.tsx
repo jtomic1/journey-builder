@@ -2,15 +2,14 @@ import { Node, Edge, ReactFlow, NodeMouseHandler } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useState } from 'react';
 import PrefillModal from '../prefill/prefill-modal';
+import { useAppSelector } from '@/app/store/store';
 
-export type GraphProps = {
-  nodes: Node[];
-  edges: Edge[];
-};
-
-function Graph({ nodes, edges }: GraphProps) {
+function Graph() {
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const nodes = useAppSelector((state) => state.graph.nodes || []);
+  const edges = useAppSelector((state) => state.graph.edges || []);
 
   const onNodeClick: NodeMouseHandler = (_, node) => {
     setSelectedNode(node);
@@ -32,7 +31,7 @@ function Graph({ nodes, edges }: GraphProps) {
         fitView
       />
       {selectedNode && isModalOpen && (
-        <PrefillModal isVisible={isModalOpen} node={selectedNode} onClose={onModalClose} />
+        <PrefillModal isVisible={isModalOpen} nodeId={selectedNode.id} onClose={onModalClose} />
       )}
     </div>
   );

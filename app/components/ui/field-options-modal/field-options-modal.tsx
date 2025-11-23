@@ -94,7 +94,9 @@ export function FieldOptionsModal({ isVisible, onClose, node, field }: FieldOpti
               <p>Please select a value to continue.</p>
             ) : (
               <p>
-                Selected value: <span style={{ fontWeight: 'bold' }}>{selectedOption.value}</span>
+                Selected value:
+                <br />
+                <span style={{ fontWeight: 'bold' }}>{selectedOption.value}</span>
               </p>
             )}
           </div>

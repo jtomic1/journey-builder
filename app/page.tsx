@@ -34,18 +34,9 @@ export default function Home() {
     }
   }, [data, dispatch]);
 
-  const nodes = useAppSelector((state) => state.graph.nodes);
-  const edges = useAppSelector((state) => state.graph.edges);
-
   return (
     <div className='center-align-container'>
-      {isLoading ? (
-        <ProgressSpinner />
-      ) : error ? (
-        <span>Error: {error.message}</span>
-      ) : (
-        <Graph nodes={nodes} edges={edges} />
-      )}
+      {isLoading ? <ProgressSpinner /> : error ? <span>Error: {error.message}</span> : <Graph />}
     </div>
   );
 }
