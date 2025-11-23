@@ -1,4 +1,4 @@
-import { ActionBlueprintGraphResponse } from '../types/blueprint';
+import { ActionBlueprintGraphResponse } from '../types/blueprint-dto';
 
 export const getActionBlueprintGraph = async (
   tenantId: string,

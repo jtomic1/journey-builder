@@ -4,16 +4,16 @@ export interface ActionBlueprintGraphResponse {
   name: string;
   description: string;
   category: string;
-  nodes: Node[];
-  edges: Edge[];
-  forms: Form[];
+  nodes: NodeDTO[];
+  edges: EdgeDTO[];
+  forms: FormDTO[];
 
   // Empty fields
   // branches: any[]
   // triggers: any[]
 }
 
-export interface Node {
+export interface NodeDTO {
   id: string;
   type: string;
   position: Point;
@@ -36,12 +36,12 @@ export interface NodeData {
   // approval_roles: any[]
 }
 
-export interface Edge {
+export interface EdgeDTO {
   source: string;
   target: string;
 }
 
-export interface Form {
+export interface FormDTO {
   id: string;
   name: string;
   description: string;
