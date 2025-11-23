@@ -5,7 +5,9 @@ import { ProgressSpinner } from 'primereact/progressspinner';
 import { getActionBlueprintGraph } from './services/api';
 import { GraphMapper } from './services/mappers/graph-mapper';
 import Graph from './components/ui/graph/graph';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useAppDispatch, useAppSelector } from './store/store';
+import { setGraph } from './store/graph-slice';
 
 const TENANT_ID = '123';
 const BLUEPRINT_ID = 'bp_456';
@@ -20,6 +22,21 @@ export default function Home() {
     return new GraphMapper(data?.nodes || [], data?.edges || [], data?.forms || []);
   }, [data]);
 
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (data) {
+      dispatch(
+        setGraph({
+          nodes: mapper.mapDTOToXYNodes(),
+          edges: mapper.mapDTOToXYEdges(),
+        }),
+      );
+    }
+  }, [data, dispatch]);
+
+  const nodes = useAppSelector((state) => state.graph.nodes);
+  const edges = useAppSelector((state) => state.graph.edges);
+
   return (
     <div className='center-align-container'>
       {isLoading ? (
@@ -27,7 +44,7 @@ export default function Home() {
       ) : error ? (
         <span>Error: {error.message}</span>
       ) : (
-        <Graph nodes={mapper.mapDTOToXYNodes()} edges={mapper.mapDTOToXYEdges()} />
+        <Graph nodes={nodes} edges={edges} />
       )}
     </div>
   );

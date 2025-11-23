@@ -1,6 +1,6 @@
 import { NodeDTO, FormDTO, EdgeDTO } from '../../types/blueprint-dto';
 import { Node as XYNode, Edge as XYEdge, Position, MarkerType } from '@xyflow/react';
-import { NodeDependency } from './node-dependencies';
+import { NodeDependency } from '../../types/node-dependencies';
 
 export class GraphMapper {
   nodes: NodeDTO[];

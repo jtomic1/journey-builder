@@ -1,8 +1,14 @@
-import type { Metadata } from 'next';
+'use client';
+
 import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 import { QueryProvider } from './components/providers/query-provider';
 import Navbar from './components/ui/navbar';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -14,11 +20,6 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'Journey Builder',
-  description: 'Journey Builder - a React coding challenge.',
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,8 +29,10 @@ export default function RootLayout({
     <html lang='en'>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <QueryProvider>
-          <Navbar title='Journey Builder' />
-          {children}
+          <Provider store={store}>
+            <Navbar title='Journey Builder' />
+            {children}
+          </Provider>
         </QueryProvider>
       </body>
     </html>
