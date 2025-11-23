@@ -1,0 +1,27 @@
+$option-background: lightgray;
+
+.selectedOptionContainer {
+  display: flex;
+  align-items: center;
+  width: 60%;
+}
+
+.optionsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.option {
+  border-radius: 8px;
+  padding: 5px 5px 5px 15px;
+
+  &.active {
+    background-color: rgba($option-background, 0.5);
+  }
+
+  &:hover {
+    background-color: rgba($option-background, 0.2);
+    cursor: pointer;
+  }
+}
