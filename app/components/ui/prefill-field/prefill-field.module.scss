@@ -1,0 +1,40 @@
+$no-prefill-background: rgb(227, 227, 227);
+$no-prefill-border: rgb(188, 188, 188);
+
+$prefill-background: rgb(240, 240, 240);
+
+$delete-color: darkred;
+
+.noPrefilledField {
+  display: flex;
+  gap: 10px;
+  background-color: $no-prefill-background;
+  border-radius: 8px;
+  padding: 6px;
+  align-items: center;
+  border: 2px dashed $no-prefill-border;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba($no-prefill-background, 0.5);
+  }
+}
+
+.prefilledField {
+  display: flex;
+  justify-content: space-between;
+  background-color: $prefill-background;
+  align-items: center;
+  padding: 6px 12px 6px 12px;
+  border-radius: 16px;
+
+  & i {
+    color: darkred;
+    padding-left: 6px;
+  }
+
+  & i:hover {
+    cursor: pointer;
+    color: rgb($delete-color, 0.6);
+  }
+}
