@@ -6,7 +6,7 @@ import { getActionBlueprintGraph } from './services/api';
 import { GraphMapper } from './services/mappers/graph-mapper';
 import Graph from './components/ui/graph/graph';
 import { useEffect, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from './store/store';
+import { useAppDispatch } from './store/store';
 import { setGraph } from './store/graph-slice';
 
 const TENANT_ID = '123';
@@ -36,7 +36,17 @@ export default function Home() {
 
   return (
     <div className='center-align-container'>
-      {isLoading ? <ProgressSpinner /> : error ? <span>Error: {error.message}</span> : <Graph />}
+      <div className='center-align-container'>
+        {isLoading ? (
+          <ProgressSpinner />
+        ) : error ? (
+          <span>Error: {error.message}</span>
+        ) : data?.nodes?.length ? (
+          <Graph />
+        ) : (
+          <div>No data available.</div>
+        )}
+      </div>
     </div>
   );
 }

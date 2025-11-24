@@ -61,7 +61,7 @@ export function FieldOptionsModal({ isVisible, onClose, node, field }: FieldOpti
   return (
     <Dialog
       header={`Available dependency fields for '${field}'`}
-      style={{ width: '70vw' }}
+      style={{ width: '50vw' }}
       onHide={onClose}
       visible={isVisible}
       footer={footer}

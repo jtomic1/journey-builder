@@ -5,6 +5,7 @@ import { FieldOptionsModal } from '../field-options-modal/field-options-modal';
 import { FieldMapping } from '@/app/types/node-dependencies';
 import { useAppDispatch, useAppSelector } from '@/app/store/store';
 import { deleteFormFieldMapping } from '@/app/store/graph-slice';
+import PrefillField from '../prefill-field/prefill-field';
 
 interface PrefillModalProps {
   isVisible: boolean;
@@ -41,6 +42,10 @@ export default function PrefillModal({ isVisible, onClose, nodeId }: PrefillModa
 
   if (!node) return <div>Error loading node...</div>;
 
+  const formFields = Array.isArray(node.data.formFields) ? (node.data.formFields as string[]) : [];
+  const fieldMappings = (node.data.fieldMappings as Record<string, FieldMapping>) || {};
+  const hasFields = formFields.length > 0;
+
   return (
     <>
       <Dialog
@@ -50,33 +55,22 @@ export default function PrefillModal({ isVisible, onClose, nodeId }: PrefillModa
         style={{ width: '50vw' }}
       >
         <div className={styles.formFieldContainer}>
-          {(node.data.formFields as string[]) &&
-            (node.data.formFields as string[]).map((field: string) => {
-              const mappedValue = ((node.data.fieldMappings as Record<string, FieldMapping>) || {})[
-                field
-              ];
-              if (mappedValue) {
-                return (
-                  <div key={field} className={styles.prefilledField}>
-                    <div>{`${field}: ${mappedValue.source}.${mappedValue.label}`}</div>
-                    <i
-                      className='pi pi-times-circle'
-                      onClick={() => onDeleteClick(node.id, field)}
-                    ></i>
-                  </div>
-                );
-              }
-              return (
-                <div
-                  key={field}
-                  className={styles.noPrefilledField}
-                  onClick={() => onFieldClick(field)}
-                >
-                  <i className='pi pi-database'></i>
-                  <div>{field}</div>
-                </div>
-              );
-            })}
+          {hasFields ? (
+            formFields.map((field) => {
+              const mappedValue = fieldMappings[field];
+
+              const fieldProps = {
+                mappedValue,
+                field,
+                onDeleteClick: () => onDeleteClick(node.id, field),
+                onFieldClick: () => onFieldClick(field),
+              };
+
+              return <PrefillField key={field} {...fieldProps} />;
+            })
+          ) : (
+            <div>No fields found for prefill!</div>
+          )}
         </div>
       </Dialog>
       {showSelectedField && selectedField && (

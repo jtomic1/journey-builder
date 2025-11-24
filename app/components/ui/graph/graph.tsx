@@ -1,4 +1,4 @@
-import { Node, Edge, ReactFlow, NodeMouseHandler } from '@xyflow/react';
+import { Node, ReactFlow, NodeMouseHandler } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useState } from 'react';
 import PrefillModal from '../prefill/prefill-modal';
