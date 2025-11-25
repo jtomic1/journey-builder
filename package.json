@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "cross-env PORT=3001 next start",
+    "start:3000": "cross-env PORT=3000 next start",
+    "start:3002": "cross-env PORT=3002 next start",
     "lint": "eslint",
     "test": "jest"
   },
@@ -31,6 +33,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-jest": "^30.2.0",
+    "cross-env": "^10.1.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
     "eslint-config-prettier": "^10.1.8",
