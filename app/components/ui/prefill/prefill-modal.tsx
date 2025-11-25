@@ -2,9 +2,9 @@ import { Dialog } from 'primereact/dialog';
 import styles from './prefill-modal.module.scss';
 import { useState } from 'react';
 import { FieldOptionsModal } from '../field-options-modal/field-options-modal';
-import { FieldMapping } from '@/app/types/node-dependencies';
-import { useAppDispatch, useAppSelector } from '@/app/store/store';
-import { deleteFormFieldMapping } from '@/app/store/graph-slice';
+import { FieldMapping } from '../../../types/node-dependencies';
+import { useAppDispatch, useAppSelector } from '../../../store/store';
+import { deleteFormFieldMapping } from '../../../store/graph-slice';
 import PrefillField from '../prefill-field/prefill-field';
 
 interface PrefillModalProps {
@@ -42,14 +42,14 @@ export default function PrefillModal({ isVisible, onClose, nodeId }: PrefillModa
 
   if (!node) return <div>Error loading node...</div>;
 
-  const formFields = Array.isArray(node.data.formFields) ? (node.data.formFields as string[]) : [];
-  const fieldMappings = (node.data.fieldMappings as Record<string, FieldMapping>) || {};
+  const formFields = Array.isArray(node.data?.formFields) ? (node.data.formFields as string[]) : [];
+  const fieldMappings = (node.data?.fieldMappings as Record<string, FieldMapping>) || {};
   const hasFields = formFields.length > 0;
 
   return (
     <>
       <Dialog
-        header={node.data.label as string}
+        header={node.data?.label as string}
         onHide={onClose}
         visible={isVisible}
         style={{ width: '50vw' }}

@@ -5,6 +5,7 @@ import { Dependencies, NodeDependency } from '../types/node-dependencies';
 export function convertSnakeToTitle(key: string) {
   return key
     .split('_')
+    .filter(Boolean)
     .map((w) => w[0].toUpperCase() + w.substring(1))
     .join(' ');
 }
@@ -34,7 +35,7 @@ export function getDataSections(depData: Dependencies) {
   return sections;
 }
 
-function globalDataSections(): DataSection[] {
+export function globalDataSections(): DataSection[] {
   return [
     {
       title: 'Action Properties',
@@ -57,7 +58,10 @@ function globalDataSections(): DataSection[] {
   ];
 }
 
-function getDependencyDataSection(dep: NodeDependency, depType: FieldInheritanceType): DataSection {
+export function getDependencyDataSection(
+  dep: NodeDependency,
+  depType: FieldInheritanceType,
+): DataSection {
   return {
     title: dep.name,
     type: depType,

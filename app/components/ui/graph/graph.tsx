@@ -2,7 +2,7 @@ import { Node, ReactFlow, NodeMouseHandler } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { useState } from 'react';
 import PrefillModal from '../prefill/prefill-modal';
-import { useAppSelector } from '@/app/store/store';
+import { useAppSelector } from '../../../store/store';
 
 function Graph() {
   const [selectedNode, setSelectedNode] = useState<Node | null>(null);

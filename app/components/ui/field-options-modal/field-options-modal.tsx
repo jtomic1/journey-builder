@@ -1,14 +1,13 @@
 import { Node } from '@xyflow/react';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
-import { Tooltip } from 'primereact/tooltip';
 import { Accordion, AccordionTab } from 'primereact/accordion';
-import { useAppDispatch } from '@/app/store/store';
-import { getDataSections } from '@/app/utils/field-options-util';
-import { Dependencies, FieldMapping } from '@/app/types/node-dependencies';
+import { useAppDispatch } from '../../../store/store';
+import { getDataSections } from '../../../utils/field-options-util';
+import { Dependencies, FieldMapping } from '../../../types/node-dependencies';
 import { useState } from 'react';
 import styles from './field-options-modal.module.scss';
-import { updateFormFieldMapping } from '@/app/store/graph-slice';
+import { updateFormFieldMapping } from '../../../store/graph-slice';
 
 interface FieldOptionsModalProps {
   isVisible: boolean;

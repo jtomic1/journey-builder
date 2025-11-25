@@ -1,0 +1,26 @@
+module.exports = {
+  testEnvironment: 'jsdom',
+  transform: {
+    '^.+\\.(t|j)sx?$': [
+      '@swc/jest',
+      {
+        jsc: {
+          parser: {
+            syntax: 'typescript',
+            tsx: true,
+          },
+          transform: {
+            react: {
+              runtime: 'automatic',
+            },
+          },
+        },
+      },
+    ],
+  },
+  moduleNameMapper: {
+    '/^@\/(.*)$/': '<rootDir>\\app\\$1',
+    '\\.css$': 'identity-obj-proxy',
+  },
+  resolver: undefined,
+};
