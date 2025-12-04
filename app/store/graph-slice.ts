@@ -17,6 +17,15 @@ interface DeleteMappingPayload {
   fieldName: string;
 }
 
+interface UpdateNodeStyle {
+  nodeId: string;
+  style: any;
+}
+
+interface ClearNodeStyles {
+  nodesToPreserve: string[];
+}
+
 const INITIAL_STATE: GraphState = {
   nodes: [],
   edges: [],
@@ -39,6 +48,24 @@ export const GraphSlice = createSlice({
         };
       }
     },
+    updateNodeStyle: (state, action: PayloadAction<UpdateNodeStyle>) => {
+      const { nodeId, style } = action.payload;
+      state.nodes.forEach((n) => {
+        if (nodeId === n.id) n.style = style;
+        state.edges.forEach((e) => {
+          if (e.target === nodeId) e.style = { stroke: 'red', width: '2px' };
+        });
+      });
+    },
+    clearNodeStyles: (state, action: PayloadAction<ClearNodeStyles>) => {
+      const toPreserve = action.payload.nodesToPreserve;
+      state.nodes.forEach((n) => {
+        if (!toPreserve.includes(n.id)) delete n.style;
+      });
+      state.edges.forEach((e) => {
+        if (!toPreserve.includes(e.target)) delete e.style;
+      });
+    },
     deleteFormFieldMapping: (state, action: PayloadAction<DeleteMappingPayload>) => {
       const { nodeId, fieldName } = action.payload;
       const node = state.nodes.find((n) => n.id === nodeId);
@@ -48,6 +75,12 @@ export const GraphSlice = createSlice({
   },
 });
 
-export const { setGraph, updateFormFieldMapping, deleteFormFieldMapping } = GraphSlice.actions;
+export const {
+  setGraph,
+  updateFormFieldMapping,
+  deleteFormFieldMapping,
+  updateNodeStyle,
+  clearNodeStyles,
+} = GraphSlice.actions;
 
 export default GraphSlice.reducer;

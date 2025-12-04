@@ -23,15 +23,23 @@ const globalData: GlobalData = {
   },
 };
 
-export function getDataSections(depData: Dependencies) {
+export function getDataSections(
+  depData: Dependencies,
+  allowedDependencies: FieldInheritanceType[] = Object.keys(
+    FieldInheritanceType,
+  ) as FieldInheritanceType[],
+) {
   const sections: DataSection[] = [];
-  sections.push(...globalDataSections());
-  depData?.direct.forEach((dep) =>
-    sections.push(getDependencyDataSection(dep, FieldInheritanceType.DIRECT)),
-  );
-  depData?.transitive.forEach((dep) =>
-    sections.push(getDependencyDataSection(dep, FieldInheritanceType.TRANSITIVE)),
-  );
+  if (allowedDependencies.includes(FieldInheritanceType.GLOBAL))
+    sections.push(...globalDataSections());
+  if (allowedDependencies.includes(FieldInheritanceType.DIRECT))
+    depData?.direct.forEach((dep) =>
+      sections.push(getDependencyDataSection(dep, FieldInheritanceType.DIRECT)),
+    );
+  if (allowedDependencies.includes(FieldInheritanceType.TRANSITIVE))
+    depData?.transitive.forEach((dep) =>
+      sections.push(getDependencyDataSection(dep, FieldInheritanceType.TRANSITIVE)),
+    );
   return sections;
 }
 

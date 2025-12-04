@@ -8,6 +8,8 @@ import { Dependencies, FieldMapping } from '../../../types/node-dependencies';
 import { useState } from 'react';
 import styles from './field-options-modal.module.scss';
 import { updateFormFieldMapping } from '../../../store/graph-slice';
+import { useSearchParams } from 'next/navigation';
+import { FieldInheritanceType } from '@/app/enums/field-inheritance-type';
 
 interface FieldOptionsModalProps {
   isVisible: boolean;
@@ -18,7 +20,12 @@ interface FieldOptionsModalProps {
 
 export function FieldOptionsModal({ isVisible, onClose, node, field }: FieldOptionsModalProps) {
   const dispatch = useAppDispatch();
-  const dataSections = getDataSections(node.data.dependencies as Dependencies);
+  const searchParams = useSearchParams();
+  const deps = searchParams.get('deps')?.split('-');
+  const dataSections = getDataSections(
+    node.data.dependencies as Dependencies,
+    deps as FieldInheritanceType[],
+  );
 
   const [selectedOption, setSelectedOption] = useState<FieldMapping | null>(null);
 
